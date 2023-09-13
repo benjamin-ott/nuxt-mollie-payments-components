@@ -1,6 +1,5 @@
 # Vue components for Mollie Payments (Nuxt module)
 
-- [🏀 Online playground](https://stackblitz.com/github/nuxt-mollie-payments-components?file=playground%2Fapp.vue)
 - [📖 &nbsp;Documentation](https://frontends.shopware.com)
 
 ## Features
@@ -10,6 +9,10 @@
 - ⛰ &nbsp;`useMollie` & `useMollieCreditCard` composable function
 - 🚠 &nbsp;`MollieCreditCardComponent.vue` component to use in a Vue project
 - 🌲 &nbsp;`ShopwareFrontendsCreditCard.vue` component to use in a Nuxt Shopware Powered project
+
+## Requirements
+- Nuxt 3
+- installed: @shopware-pwa/nuxt3-module / @shopware-pwa/composables-next - optional if you want to use `ShopwareFrontendsCreditCard` component which sends additional request to Mollie's endpoint in order to store Credit Card token.
 
 ## Development
 
