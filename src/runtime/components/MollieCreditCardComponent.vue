@@ -49,15 +49,25 @@ onMounted(async () => {
   <div class="mollie-credit-card">
     <div id="mollie-credit-card-container" />
 
-    <div v-if="mollieConfig && mollieConfig.oneClickPayments">
-      <label for="creditCardSaveCardDetails">
-        <input
-          id="creditCardSaveCardDetails"
-          v-model="shouldSaveCardDetailsIsChecked"
-          class="mollie-credit-card__save-card-details-checkbox"
-          type="checkbox"
-          @change="onSaveCardChange"
-        >
+    <div
+      v-if="mollieConfig && mollieConfig.oneClickPayments"
+      class="mollie-credit-card__save-card-details-checkbox"
+    >
+      <input
+        id="creditCardSaveCardDetails"
+        v-model="shouldSaveCardDetailsIsChecked"
+        class="mollie-credit-card__save-card-details-checkbox-input"
+        type="checkbox"
+        @change="onSaveCardChange"
+      >
+      <label
+        for="creditCardSaveCardDetails"
+        class="mollie-credit-card__save-card-details-checkbox-label"
+      >
+        <span
+          class="mollie-credit-card__save-card-details-checkbox-styled"
+          :class="{'is-checked': shouldSaveCardDetailsIsChecked}"
+        />
         {{ saveCardDetailsCheckboxLabel ?? `Save card details` }}
       </label>
     </div>
