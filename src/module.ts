@@ -1,77 +1,100 @@
 import {
-  defineNuxtModule,
-  addPlugin,
-  addImports,
-  createResolver,
-  addComponent,
-} from "@nuxt/kit";
+    defineNuxtModule,
+    addPlugin,
+    addImports,
+    createResolver,
+    addComponent,
+} from '@nuxt/kit';
 
-import type { MollieOptions } from "./types";
-import { resolveOwnDependency } from "./utils";
+import type { MollieOptions } from './types';
+import { resolveOwnDependency } from './utils';
 
 export default defineNuxtModule<MollieOptions>({
-  meta: {
-    name: "mollie",
-    configKey: "mollie",
-  },
-  async setup(options, nuxt) {
-    const resolver = createResolver(import.meta.url);
-    nuxt.options.runtimeConfig.public.mollie ||= options;
+    meta: {
+        name: 'mollie',
+        configKey: 'mollie',
+    },
+    async setup(options, nuxt) {
+        const resolver = createResolver(import.meta.url);
+        nuxt.options.runtimeConfig.public.mollie ||= options;
 
-    addPlugin({
-      src: resolver.resolve("./runtime/plugins/plugin.server"),
-      mode: "server",
-    });
-    addPlugin({
-      src: resolver.resolve("./runtime/plugins/plugin.client"),
-      mode: "client",
-    });
+        addPlugin({
+            src: resolver.resolve('./runtime/plugins/plugin.server'),
+            mode: 'server',
+        });
 
-    addComponent({
-      name: "MollieCreditCardComponent",
-      filePath: resolver.resolve(
-        "./runtime/components/MollieCreditCardComponent.vue"
-      ),
-    });
-    addImports([
-      {
-        name: "useMollieCreditCard",
-        as: "useMollieCreditCard",
-        from: resolver.resolve("./runtime/composables/useMollieCreditCard"),
-      },
-      {
-        name: "useMollie",
-        as: "useMollie",
-        from: resolver.resolve("./runtime/composables/useMollie"),
-      },
-    ]);
+        addPlugin({
+            src: resolver.resolve('./runtime/plugins/plugin.client'),
+            mode: 'client',
+        });
 
-    const composablesDependency = await resolveOwnDependency(
-      "@shopware-pwa/composables-next",
-      nuxt
-    );
-    if (composablesDependency) {
-      nuxt.options.alias["@shopware-pwa/composables-next"] =
-        composablesDependency;
+        addComponent({
+            name: 'MollieCreditCardComponent',
+            filePath: resolver.resolve(
+                './runtime/components/MollieCreditCardComponent.vue'
+            ),
+        });
 
-      addComponent({
-        name: "ShopwareFrontendsCreditCard",
-        filePath: resolver.resolve(
-          "./runtime/components/ShopwareFrontendsCreditCard.vue"
-        ),
-      });
-    } else {
-      console.warn(
-        "@shopware-pwa/composables-next or @shopware-pwa/nuxt3-module package is missing. ShopwareFrontendsCreditCard component was not registered."
-      );
-    }
+        addComponent({
+            name: 'MollieCreditCardMandates',
+            filePath: resolver.resolve(
+                './runtime/components/MollieCreditCardMandates.vue'
+            ),
+        });
 
-    const i18nModuleDependency = await resolveOwnDependency("@nuxt/i18n", nuxt);
-    if (i18nModuleDependency) {
-    } else {
-      console.warn(
-        "@nuxt/i18n module is missing. Default value of locale will be used."
-      );
-    }
-  },
+        addImports([
+            {
+                name: 'useMollieCreditCard',
+                as: 'useMollieCreditCard',
+                from: resolver.resolve('./runtime/composables/useMollieCreditCard'),
+            },
+            {
+                name: 'useMollie',
+                as: 'useMollie',
+                from: resolver.resolve('./runtime/composables/useMollie'),
+            },
+        ]);
+
+        const composablesDependency = await resolveOwnDependency(
+            '@shopware-pwa/composables-next',
+            nuxt
+        );
+        if (composablesDependency) {
+            nuxt.options.alias['@shopware-pwa/composables-next'] =
+                composablesDependency;
+
+            addComponent({
+                name: 'ShopwareFrontendsCreditCard',
+                filePath: resolver.resolve(
+                    './runtime/components/ShopwareFrontendsCreditCard.vue'
+                ),
+            });
+
+            addComponent({
+                name: 'ShopwareFrontendsIdeal',
+                filePath: resolver.resolve(
+                    './runtime/components/ShopwareFrontendsIdeal.vue'
+                ),
+            });
+
+            addComponent({
+                name: 'ShopwareFrontendsPos',
+                filePath: resolver.resolve(
+                    './runtime/components/ShopwareFrontendsPos.vue'
+                ),
+            });
+        } else {
+            console.warn(
+                '@shopware-pwa/composables-next or @shopware-pwa/nuxt3-module package is missing. ShopwareFrontendsCreditCard component was not registered.'
+            );
+        }
+
+        const i18nModuleDependency = await resolveOwnDependency('@nuxt/i18n', nuxt);
+        if (i18nModuleDependency) {
+        } else {
+            console.warn(
+                '@nuxt/i18n module is missing. Default value of locale will be used.'
+            );
+        }
+    },
 });
