@@ -9,6 +9,7 @@ const emits = defineEmits<{
     (e: 'error', error: string | undefined): void;
     (e: 'store-mandate', mandateId: string | undefined): void;
     (e: 'should-save-card-details', shouldSave: boolean): void;
+    (e: 'mounted', value: boolean): void;
 }>();
 
 const props = defineProps<{
@@ -101,6 +102,7 @@ const onMandateChange = (mandateId: string | undefined) => {
       @submit="onCreditCardSubmit"
       @error="onCreditCardError"
       @save-card-change="onSaveCardChange"
+      @mounted="emits('mounted', true)"
     />
   </div>
 </template>

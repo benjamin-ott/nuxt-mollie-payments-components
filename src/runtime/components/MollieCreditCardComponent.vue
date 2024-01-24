@@ -7,6 +7,7 @@ const emits = defineEmits<{
     (e: 'submit', token: string | undefined): void;
     (e: 'error', error: string | undefined): void;
     (e: 'save-card-change', value: boolean): void;
+    (e: 'mounted', value: boolean): void;
 }>();
 
 const props = defineProps<{
@@ -40,6 +41,7 @@ const onSaveCardChange = () => {
 onMounted(async () => {
     await init();
     await mount();
+    emits('mounted', true);
 });
 </script>
 
