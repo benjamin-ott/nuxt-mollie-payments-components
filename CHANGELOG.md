@@ -1,0 +1,16 @@
+# Changelog
+
+
+## v1.0.1
+
+
+### 📖 Documentation
+
+- Readme update ([03f850f](https://github.com/your-org/my-module/commit/03f850f))
+- Update readme ([1f38a48](https://github.com/your-org/my-module/commit/1f38a48))
+
+### ❤️ Contributors
+
+- Maciek Kucmus <maciejkucmus@gmail.com>
+- Mkucmus <maciejkucmus@gmail.com>
+
