@@ -8,6 +8,7 @@ const emits = defineEmits<{
     (e: 'submit', token: string | undefined): void;
     (e: 'error', error: string | undefined): void;
     (e: 'store-mandate', mandateId: string | undefined): void;
+    (e: 'should-save-card-details', shouldSave: boolean): void;
 }>();
 
 const props = defineProps<{
@@ -18,6 +19,7 @@ const props = defineProps<{
     mandatesSelectLabel?: string;
     mandatesSelectDisabledOption?: string;
     mandateOrNewText?: string;
+    hideSaveButton?: boolean;
 }>();
 
 const { apiInstance } = useShopwareContext();
@@ -68,6 +70,7 @@ const onCreditCardError = async (error: string | undefined) => {
 // called when the user changes the save card details checkbox
 const onSaveCardChange = (value: boolean) => {
     shouldSaveCardDetail.value = value;
+    emits('should-save-card-details', value);
 };
 
 const onMandateChange = (mandateId: string | undefined) => {
@@ -94,6 +97,7 @@ const onMandateChange = (mandateId: string | undefined) => {
       :submit-button-label="submitButtonLabel"
       :submit-disabled="submitDisabled"
       :save-card-details-checkbox-label="saveCardDetailsCheckboxLabel"
+      :hide-save-button="hideSaveButton"
       @submit="onCreditCardSubmit"
       @error="onCreditCardError"
       @save-card-change="onSaveCardChange"

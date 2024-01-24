@@ -14,6 +14,7 @@ const props = defineProps<{
     submitButtonLabel?: string;
     submitDisabled?: boolean;
     saveCardDetailsCheckboxLabel?: string;
+    hideSaveButton?: boolean;
 }>();
 
 const { init, getToken } = useMollie(props.mollieConfig);
@@ -46,7 +47,7 @@ onMounted(async () => {
   <div class="mollie-credit-card">
     <div id="mollie-credit-card-container" />
 
-    <div>
+    <div v-if="mollieConfig && mollieConfig.oneClickPayments">
       <label for="creditCardSaveCardDetails">
         <input
           id="creditCardSaveCardDetails"
@@ -60,6 +61,7 @@ onMounted(async () => {
     </div>
 
     <button
+      v-if="!hideSaveButton"
       :disabled="submitDisabled"
       class="mollie-credit-card__submit-button"
       :class="{ 'button-disabled': submitDisabled }"
