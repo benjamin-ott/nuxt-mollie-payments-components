@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
-import { useNuxtApp, ref } from '#imports';
+import { useNuxtApp } from '#imports';
 import { useMollieCreditCard } from './src/runtime/composables/useMollieCreditCard';
 
 vi.mock('#imports', async () => ({
