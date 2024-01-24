@@ -90,8 +90,7 @@ export default defineNuxtModule<MollieOptions>({
         }
 
         const i18nModuleDependency = await resolveOwnDependency('@nuxt/i18n', nuxt);
-        if (i18nModuleDependency) {
-        } else {
+        if (!i18nModuleDependency) {
             console.warn(
                 '@nuxt/i18n module is missing. Default value of locale will be used.'
             );

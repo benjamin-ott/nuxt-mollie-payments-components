@@ -5,7 +5,7 @@ export default defineNuxtPlugin({
     name: 'mollie-register',
     enforce: 'pre',
 
-    async setup(nuxtApp) {
+    async setup() {
         useServerHead({
             script: [
                 {

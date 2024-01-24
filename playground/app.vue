@@ -32,26 +32,30 @@ const IdealError = ref();
       Test Credit Number:
       <pre>2223 0000 1047 9399</pre>
     </div>
-    <hr />
-    <div v-if="CreditCardError">Error: {{ CreditCardError }}</div>
-    <div v-if="CreditCardToken">Token: {{ CreditCardToken }}</div>
+    <hr>
+    <div v-if="CreditCardError">
+      Error: {{ CreditCardError }}
+    </div>
+    <div v-if="CreditCardToken">
+      Token: {{ CreditCardToken }}
+    </div>
   </div>
 
   <h2>Ideal</h2>
 
   <ShopwareFrontendsIdeal
-      locale="en_US"
-      select-label="Please choose your bank:"
-      select-disabled-option="Select your bank"
-      @save-issuer-success="
-          () => {
-              IdealError = null;
-          }"
-      @save-issuer-error="
-          (message: string | undefined) => {
-              IdealError = `${message} ❌`;
-          }
-      "
+    locale="en_US"
+    select-label="Please choose your bank:"
+    select-disabled-option="Select your bank"
+    @save-issuer-success="
+      () => {
+        IdealError = null;
+      }"
+    @save-issuer-error="
+      (message) => {
+        IdealError = `${message} ❌`;
+      }
+    "
   />
 </template>
 <style scoped>

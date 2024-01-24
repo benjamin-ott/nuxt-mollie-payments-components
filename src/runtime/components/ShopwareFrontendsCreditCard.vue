@@ -79,24 +79,24 @@ const onMandateChange = (mandateId: string | undefined) => {
 </script>
 
 <template>
-    <div class="shopware-frontends-credit-card">
-        <MollieCreditCardMandates
-            v-if="oneClickPaymentsActive && mandates && mandates.length > 0"
-            :mandates="mandates"
-            :select-label="mandatesSelectLabel"
-            :select-disable-option="mandatesSelectDisabledOption"
-            :mandate-or-new-text="mandateOrNewText"
-            @change-mandate="onMandateChange"
-        />
+  <div class="shopware-frontends-credit-card">
+    <MollieCreditCardMandates
+      v-if="oneClickPaymentsActive && mandates && mandates.length > 0"
+      :mandates="mandates"
+      :select-label="mandatesSelectLabel"
+      :select-disable-option="mandatesSelectDisabledOption"
+      :mandate-or-new-text="mandateOrNewText"
+      @change-mandate="onMandateChange"
+    />
 
-        <MollieCreditCardComponent
-            :mollie-config="mollieConfig"
-            :submit-button-label="submitButtonLabel"
-            :submit-disabled="submitDisabled"
-            :save-card-details-checkbox-label="saveCardDetailsCheckboxLabel"
-            @submit="onCreditCardSubmit"
-            @error="onCreditCardError"
-            @save-card-change="onSaveCardChange"
-        />
-    </div>
+    <MollieCreditCardComponent
+      :mollie-config="mollieConfig"
+      :submit-button-label="submitButtonLabel"
+      :submit-disabled="submitDisabled"
+      :save-card-details-checkbox-label="saveCardDetailsCheckboxLabel"
+      @submit="onCreditCardSubmit"
+      @error="onCreditCardError"
+      @save-card-change="onSaveCardChange"
+    />
+  </div>
 </template>

@@ -67,32 +67,32 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="mollie-ideal">
-        <label for="mollieIdealSelect">
-            {{ selectLabel ?? `Please choose your issuer:` }}
-        </label>
-        <select
-            id="mollieIdealSelect"
-            v-model="activeIssuer"
-            class="mollie-select mollie-ideal-select"
-            @change="saveIdealIssuer"
-        >
-            <option
-                value=""
-                disabled
-                selected
-            >
-                {{ selectDisabledOption ?? `Select your issuer` }}
-            </option>
-            <option
-                v-for="issuer in issuers"
-                :key="issuer.id"
-                :value="issuer.id"
-            >
-                {{ issuer.name }}
-            </option>
-        </select>
-    </div>
+  <div class="mollie-ideal">
+    <label for="mollieIdealSelect">
+      {{ selectLabel ?? `Please choose your issuer:` }}
+    </label>
+    <select
+      id="mollieIdealSelect"
+      v-model="activeIssuer"
+      class="mollie-select mollie-ideal-select"
+      @change="saveIdealIssuer"
+    >
+      <option
+        value=""
+        disabled
+        selected
+      >
+        {{ selectDisabledOption ?? `Select your issuer` }}
+      </option>
+      <option
+        v-for="issuer in issuers"
+        :key="issuer.id"
+        :value="issuer.id"
+      >
+        {{ issuer.name }}
+      </option>
+    </select>
+  </div>
 </template>
 
 <style scoped>

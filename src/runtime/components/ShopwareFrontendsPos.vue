@@ -67,32 +67,32 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="mollie-pos">
-        <label for="molliePosSelect">
-            {{ selectLabel ?? `Please choose your terminal:` }}
-        </label>
-        <select
-            id="molliePosSelect"
-            v-model="selectedTerminal"
-            class="mollie-select mollie-pos-select"
-            @change="savePosTerminal"
-        >
-            <option
-                value=""
-                disabled
-                selected
-            >
-                {{ selectDisabledOption ?? `Select your terminal` }}
-            </option>
-            <option
-                v-for="terminal in terminals"
-                :key="terminal.id"
-                :value="terminal.id"
-            >
-                {{ terminal.name }}
-            </option>
-        </select>
-    </div>
+  <div class="mollie-pos">
+    <label for="molliePosSelect">
+      {{ selectLabel ?? `Please choose your terminal:` }}
+    </label>
+    <select
+      id="molliePosSelect"
+      v-model="selectedTerminal"
+      class="mollie-select mollie-pos-select"
+      @change="savePosTerminal"
+    >
+      <option
+        value=""
+        disabled
+        selected
+      >
+        {{ selectDisabledOption ?? `Select your terminal` }}
+      </option>
+      <option
+        v-for="terminal in terminals"
+        :key="terminal.id"
+        :value="terminal.id"
+      >
+        {{ terminal.name }}
+      </option>
+    </select>
+  </div>
 </template>
 
 <style scoped>

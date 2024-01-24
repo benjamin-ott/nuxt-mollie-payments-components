@@ -43,31 +43,31 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="mollie-credit-card">
-        <div id="mollie-credit-card-container" />
+  <div class="mollie-credit-card">
+    <div id="mollie-credit-card-container" />
 
-        <div>
-            <label for="creditCardSaveCardDetails">
-                <input
-                    id="creditCardSaveCardDetails"
-                    v-model="shouldSaveCardDetailsIsChecked"
-                    class="mollie-credit-card__save-card-details-checkbox"
-                    type="checkbox"
-                    @change="onSaveCardChange"
-                >
-                {{ saveCardDetailsCheckboxLabel ?? `Save card details` }}
-            </label>
-        </div>
-
-        <button
-            :disabled="submitDisabled"
-            class="mollie-credit-card__submit-button"
-            :class="{ 'button-disabled': submitDisabled }"
-            @click="onCreditCardSubmit"
+    <div>
+      <label for="creditCardSaveCardDetails">
+        <input
+          id="creditCardSaveCardDetails"
+          v-model="shouldSaveCardDetailsIsChecked"
+          class="mollie-credit-card__save-card-details-checkbox"
+          type="checkbox"
+          @change="onSaveCardChange"
         >
-            {{ submitButtonLabel ?? `Store credit card data` }}
-        </button>
+        {{ saveCardDetailsCheckboxLabel ?? `Save card details` }}
+      </label>
     </div>
+
+    <button
+      :disabled="submitDisabled"
+      class="mollie-credit-card__submit-button"
+      :class="{ 'button-disabled': submitDisabled }"
+      @click="onCreditCardSubmit"
+    >
+      {{ submitButtonLabel ?? `Store credit card data` }}
+    </button>
+  </div>
 </template>
 
 <style>
