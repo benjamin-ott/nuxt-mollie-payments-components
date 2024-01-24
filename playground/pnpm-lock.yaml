@@ -18,6 +18,9 @@ devDependencies:
   '@nuxt/devtools':
     specifier: ^1.0.8
     version: 1.0.8(nuxt@3.9.3)(vite@5.0.11)
+  js-cookie:
+    specifier: ^3.0.5
+    version: 3.0.5
   nuxt:
     specifier: ^3.9.3
     version: 3.9.3(vite@5.0.11)
@@ -3590,7 +3593,6 @@ packages:
   /js-cookie@3.0.5:
     resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
     engines: {node: '>=14'}
-    dev: false
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
