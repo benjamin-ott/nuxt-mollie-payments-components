@@ -6,9 +6,11 @@
 
 <!-- Highlight some of the features your module provide here -->
 
-- ⛰ &nbsp;`useMollie` & `useMollieCreditCard` composable function
-- 🚠 &nbsp;`MollieCreditCardComponent.vue` component to use in a Vue project
-- 🌲 &nbsp;`ShopwareFrontendsCreditCard.vue` component to use in a Nuxt Shopware Powered project
+- `useMollie` & `useMollieCreditCard` composable function
+- `MollieCreditCardComponent.vue` component to use in a Vue project
+- `ShopwareFrontendsCreditCard.vue` component to use in a Nuxt Shopware Powered project
+- `ShopwareFrontendsIdeal.vue` component to use in a Nuxt Shopware Powered project
+- WIP: `ShopwareFrontendsPos.vue` component to use in a Nuxt Shopware Powered project
 
 ## Requirements
 - Nuxt 3
@@ -101,7 +103,6 @@ Create a custom placeOrder function in your checkout page and react to the payme
         isLoading['placeOrder'] = false;
     };
 
-    const router = useRouter();
     watchDebounced(
         paymentUrl,
         (paymentUrl) => {
@@ -217,7 +218,6 @@ Create a custom placeOrder function in your checkout page and react to the payme
         isLoading['placeOrder'] = false;
     };
 
-    const router = useRouter();
     watchDebounced(
         paymentUrl,
         (paymentUrl) => {
@@ -315,7 +315,6 @@ Create a custom placeOrder function in your checkout page and react to the payme
         isLoading['placeOrder'] = false;
     };
 
-    const router = useRouter();
     watchDebounced(
         paymentUrl,
         (paymentUrl) => {
