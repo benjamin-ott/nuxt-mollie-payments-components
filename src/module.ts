@@ -65,7 +65,7 @@ export default defineNuxtModule<MollieOptions>({
             nuxt
         );
 
-        if (composablesDependency) {
+        if (composablesDependency && apiClientDependency) {
             nuxt.options.alias['@shopware-pwa/composables-next'] =
                 composablesDependency;
 
