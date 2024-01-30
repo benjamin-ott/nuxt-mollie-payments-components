@@ -59,9 +59,18 @@ export default defineNuxtModule<MollieOptions>({
             '@shopware-pwa/composables-next',
             nuxt
         );
+
+        const apiClientDependency = await resolveOwnDependency(
+            '@shopware/api-client',
+            nuxt
+        );
+
         if (composablesDependency) {
             nuxt.options.alias['@shopware-pwa/composables-next'] =
                 composablesDependency;
+
+            nuxt.options.alias['@shopware/api-client'] =
+                apiClientDependency;
 
             addComponent({
                 name: 'ShopwareFrontendsCreditCard',
@@ -85,7 +94,7 @@ export default defineNuxtModule<MollieOptions>({
             });
         } else {
             console.warn(
-                '@shopware-pwa/composables-next or @shopware-pwa/nuxt3-module package is missing. ShopwareFrontendsCreditCard component was not registered.'
+                '@shopware-pwa/composables-next or @shopware/api-client package is missing. ShopwareFrontendsCreditCard, ShopwareFrontendsIdeal and ShopwareFrontendsPos components were not registered.'
             );
         }
 

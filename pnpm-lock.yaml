@@ -22,8 +22,14 @@ devDependencies:
     specifier: ^3.10.0
     version: 3.10.0(h3@1.10.0)(rollup@3.29.0)(vite@5.0.12)(vitest@1.2.1)(vue-router@4.2.5)(vue@3.4.15)
   '@shopware-pwa/composables-next':
-    specifier: ^0.14.1
-    version: 0.14.1(vue@3.4.15)
+    specifier: canary
+    version: 0.0.0-canary-20240130101255(vue@3.4.15)
+  '@shopware-pwa/nuxt3-module':
+    specifier: canary
+    version: 0.0.0-canary-20231213130010(rollup@3.29.0)(vue@3.4.15)
+  '@shopware/api-client':
+    specifier: canary
+    version: 0.0.0-canary-20240130101255
   '@types/node':
     specifier: ^20.11.6
     version: 20.11.6
@@ -2225,37 +2231,63 @@ packages:
     resolution: {integrity: sha512-0xd7qez0AQ+MbHatZTlI1gu5vkG8r7MYRUJAHPAHJBmGLs16zpkrpAVLvjQKQOqaXPDUBwOiJzNc00znHSCVBw==}
     dev: true
 
-  /@shopware-pwa/api-client@0.7.0:
-    resolution: {integrity: sha512-nPiXGabxS+ueeaSPSd70NllFzLNT83M/7Z3c3C2flRhTuGKDCS+dtXAZlhcbZqS9+j6T4nZkjGTeNWOajZAnbA==}
+  /@shopware-pwa/composables-next@0.0.0-canary-20231213130010(vue@3.4.15):
+    resolution: {integrity: sha512-UksqpokCRurCdU+wnUCMOu+iFy0TyUHLUEv3pftoXi41GPVubC7q76smZDapfHn6O1WfNbVOEnxwAOfHM4BRtQ==}
     dependencies:
-      '@shopware-pwa/types': 0.6.0
-      axios: 0.27.2
-      query-string: 8.1.0
-    transitivePeerDependencies:
-      - debug
-    dev: true
-
-  /@shopware-pwa/composables-next@0.14.1(vue@3.4.15):
-    resolution: {integrity: sha512-+x0DOE/AyxaBGbyPj11+a+8KebKbNrvHmRLT6nRvB0KpbvLAVFKfZYqFe57UOp5htZwYiYx6EEuTDiyQzvw71Q==}
-    dependencies:
-      '@shopware-pwa/api-client': 0.7.0
-      '@shopware-pwa/helpers-next': 0.5.1
+      '@shopware-pwa/helpers-next': 0.0.0-canary-20231213130010
+      '@shopware/api-client': 0.0.0-canary-20231213130010
       '@vueuse/core': 10.7.2(vue@3.4.15)
       scule: 1.2.0
     transitivePeerDependencies:
       - '@vue/composition-api'
-      - debug
       - vue
     dev: true
 
-  /@shopware-pwa/helpers-next@0.5.1:
-    resolution: {integrity: sha512-3b/rvpSOmLiRwqdpIg1c/5tLebjrYrAxzcAkIIJYLz/WjPdohvBi84UYdjlzJeyJF0MQxNb24RYUTQdwO/bZCA==}
+  /@shopware-pwa/composables-next@0.0.0-canary-20240130101255(vue@3.4.15):
+    resolution: {integrity: sha512-2iVJFgPFGcW7EEj9MOCNAipCz9zQ6a5cy9ZGqsMkPDRwtxqX9f4rjCtVpttRptTk7HhfYwsubBVB9SJupchVaw==}
     dependencies:
-      '@shopware-pwa/types': 0.6.0
+      '@shopware-pwa/helpers-next': 0.0.0-canary-20240130101255
+      '@shopware/api-client': 0.0.0-canary-20240130101255
+      '@vueuse/core': 10.7.2(vue@3.4.15)
+      defu: 6.1.4
+      scule: 1.2.0
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
     dev: true
 
-  /@shopware-pwa/types@0.6.0:
-    resolution: {integrity: sha512-NVLdkbkTHGnyK14hnpHLJOi+XlqdItRVNRdg20H9Yk94Xkvws+DUtOodx825CPSUrK4pJXW6p2w4w5cVlQYLVA==}
+  /@shopware-pwa/helpers-next@0.0.0-canary-20231213130010:
+    resolution: {integrity: sha512-e3vwERcCP1R4abYlddk3wQSb7NNOqI2CeOUBMGSG0OObOPqlBiQtIjdrhe0L+K7gCpUDPj6lFosOEmHqygxRdQ==}
+    dev: true
+
+  /@shopware-pwa/helpers-next@0.0.0-canary-20240130101255:
+    resolution: {integrity: sha512-lnH5iNYAbzhXZmv9Jg4j+KjRUem2sxtBzieMUun5rMD8z21bYJxVaNaAzuQO0ATRRXXhX/QrqxFV9OYVax6ytQ==}
+    dev: true
+
+  /@shopware-pwa/nuxt3-module@0.0.0-canary-20231213130010(rollup@3.29.0)(vue@3.4.15):
+    resolution: {integrity: sha512-ORD8GquUUeJU6BCTFdlSQdoHbh1b4Bd3MwjO3a5ryC0+jtBY/SPwx8Punq5nCgCVEijgByY9mJ4JfkZ/oRTDNg==}
+    dependencies:
+      '@nuxt/kit': 3.9.3(rollup@3.29.0)
+      '@shopware-pwa/composables-next': 0.0.0-canary-20231213130010(vue@3.4.15)
+      '@shopware/api-client': 0.0.0-canary-20231213130010
+      js-cookie: 3.0.5
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - rollup
+      - supports-color
+      - vue
+    dev: true
+
+  /@shopware/api-client@0.0.0-canary-20231213130010:
+    resolution: {integrity: sha512-9QBg0jrI1pwVdESBVNE2QyuM0DSzq/+hF6KUH2GbpcpQ0X80j3L+jTXN0BjOi80SdHZ1tkMInqnkEyKy7jEL1Q==}
+    dependencies:
+      ofetch: 1.3.3
+    dev: true
+
+  /@shopware/api-client@0.0.0-canary-20240130101255:
+    resolution: {integrity: sha512-xxHGGejYKAjthNnbplA2IUXAjzTTkNGkJtqNZegnMKJnzIzHEWZ47MIOWHkoXri2Yk8WpObTiT5Xy4+deOyIYg==}
+    dependencies:
+      ofetch: 1.3.3
     dev: true
 
   /@sigstore/bundle@2.1.1:
@@ -2998,10 +3030,6 @@ packages:
     resolution: {integrity: sha512-iAB+JbDEGXhyIUavoDl9WP/Jj106Kz9DEn1DPgYw5ruDn0e3Wgi3sKFm55sASdGBNOQB8F59d9qQ7deqrHA8wQ==}
     dev: true
 
-  /asynckit@0.4.0:
-    resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
-    dev: true
-
   /autoprefixer@10.4.17(postcss@8.4.33):
     resolution: {integrity: sha512-/cpVNRLSfhOtcGflT13P2794gVSgmPgTR+erw5ifnMLZb0UnSlkK4tquLmkd3BhA+nLo5tX8Cu0upUsGKvKbmg==}
     engines: {node: ^10 || ^12 || >=14}
@@ -3016,15 +3044,6 @@ packages:
       picocolors: 1.0.0
       postcss: 8.4.33
       postcss-value-parser: 4.2.0
-    dev: true
-
-  /axios@0.27.2:
-    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
-    dependencies:
-      follow-redirects: 1.15.2
-      form-data: 4.0.0
-    transitivePeerDependencies:
-      - debug
     dev: true
 
   /b4a@1.6.4:
@@ -3392,13 +3411,6 @@ packages:
     resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
     dev: true
 
-  /combined-stream@1.0.8:
-    resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
-    engines: {node: '>= 0.8'}
-    dependencies:
-      delayed-stream: 1.0.0
-    dev: true
-
   /commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
     dev: true
@@ -3621,11 +3633,6 @@ packages:
     dependencies:
       ms: 2.1.2
 
-  /decode-uri-component@0.4.1:
-    resolution: {integrity: sha512-+8VxcR21HhTy8nOt6jf20w0c9CADrw1O8d+VZ/YzzCt4bJ3uBjw+D1q2osAB8RnpwwaeYBxy0HyKQxD5JBMuuQ==}
-    engines: {node: '>=14.16'}
-    dev: true
-
   /deep-eql@4.1.3:
     resolution: {integrity: sha512-WaEtAOpRA1MQ0eohqZjpGD8zdI0Ovsm8mmFhaDN8dvDZzyoUMcYDnf5Y6iu7HTXxf8JDS23qWa4a+hKCDyOPzw==}
     engines: {node: '>=6'}
@@ -3685,14 +3692,10 @@ packages:
 
   /defu@6.1.2:
     resolution: {integrity: sha512-+uO4+qr7msjNNWKYPHqN/3+Dx3NFkmIzayk2L1MyZQlvgZb/J1A0fo410dpKrN2SnqFjt8n4JL8fDJE0wIgjFQ==}
+    dev: true
 
   /defu@6.1.4:
     resolution: {integrity: sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==}
-
-  /delayed-stream@1.0.0:
-    resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
-    engines: {node: '>=0.4.0'}
-    dev: true
 
   /delegates@1.0.0:
     resolution: {integrity: sha512-bd2L678uiWATM6m5Z1VzNCErI3jiGzt6HGY8OVICs40JQq/HALfbyNJmp0UDakEY4pMMaN0Ly5om/B1VI/+xfQ==}
@@ -3708,12 +3711,8 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /destr@2.0.1:
-    resolution: {integrity: sha512-M1Ob1zPSIvlARiJUkKqvAZ3VAqQY6Jcuth/pBKQ2b1dX/Qx0OnJ8Vux6J2H5PTMQeRzWrrbTu70VxBfv/OPDJA==}
-
   /destr@2.0.2:
     resolution: {integrity: sha512-65AlobnZMiCET00KaFFjUefxDX0khFA/E4myqZ7a6Sq1yZtR8+FVIvilVX66vF2uobSumxooYZChiRPCKNqhmg==}
-    dev: true
 
   /destroy@1.2.0:
     resolution: {integrity: sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==}
@@ -4210,11 +4209,6 @@ packages:
     dependencies:
       to-regex-range: 5.0.1
 
-  /filter-obj@5.1.0:
-    resolution: {integrity: sha512-qWeTREPoT7I0bifpPUXtxkZJ1XJzxWtfoWWkdVGqa+eCr3SHW/Ocp89o8vLvbUuQnadybJpjOKu4V+RwO6sGng==}
-    engines: {node: '>=14.16'}
-    dev: true
-
   /find-up@5.0.0:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
@@ -4240,31 +4234,12 @@ packages:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
     dev: true
 
-  /follow-redirects@1.15.2:
-    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dev: true
-
   /foreground-child@3.1.1:
     resolution: {integrity: sha512-TMKDUnIte6bfb5nWv7V/caI169OHgvwjb7V4WkeUvbQQdjr5rWKqHFiKWb/fcOwB+CzBT+qbWjvj+DVwRskpIg==}
     engines: {node: '>=14'}
     dependencies:
       cross-spawn: 7.0.3
       signal-exit: 4.1.0
-    dev: true
-
-  /form-data@4.0.0:
-    resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
-    engines: {node: '>= 6'}
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
     dev: true
 
   /fraction.js@4.3.7:
@@ -4921,6 +4896,11 @@ packages:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
 
+  /js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
+    dev: true
+
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
     requiresBuild: true
@@ -5239,18 +5219,6 @@ packages:
     dependencies:
       braces: 3.0.2
       picomatch: 2.3.1
-
-  /mime-db@1.52.0:
-    resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
-    engines: {node: '>= 0.6'}
-    dev: true
-
-  /mime-types@2.1.35:
-    resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
-    engines: {node: '>= 0.6'}
-    dependencies:
-      mime-db: 1.52.0
-    dev: true
 
   /mime@1.6.0:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
@@ -5868,9 +5836,9 @@ packages:
   /ofetch@1.3.3:
     resolution: {integrity: sha512-s1ZCMmQWXy4b5K/TW9i/DtiN8Ku+xCiHcjQ6/J/nDdssirrQNOoB165Zu8EqLMA2lln1JUth9a0aW9Ap2ctrUg==}
     dependencies:
-      destr: 2.0.1
-      node-fetch-native: 1.4.0
-      ufo: 1.3.0
+      destr: 2.0.2
+      node-fetch-native: 1.6.1
+      ufo: 1.3.2
     dev: true
 
   /ohash@1.1.3:
@@ -6482,15 +6450,6 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /query-string@8.1.0:
-    resolution: {integrity: sha512-BFQeWxJOZxZGix7y+SByG3F36dA0AbTy9o6pSmKFcFz7DAj0re9Frkty3saBn3nHo3D0oZJ/+rx3r8H8r8Jbpw==}
-    engines: {node: '>=14.16'}
-    dependencies:
-      decode-uri-component: 0.4.1
-      filter-obj: 5.1.0
-      split-on-first: 3.0.0
-    dev: true
-
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
@@ -6516,8 +6475,8 @@ packages:
   /rc9@2.1.1:
     resolution: {integrity: sha512-lNeOl38Ws0eNxpO3+wD1I9rkHGQyj1NU1jlzv4go2CtEnEQEUfqnIvZG7W+bC/aXdJ27n5x/yUjb6RoT9tko+Q==}
     dependencies:
-      defu: 6.1.2
-      destr: 2.0.1
+      defu: 6.1.4
+      destr: 2.0.2
       flat: 5.0.2
 
   /react-is@18.2.0:
@@ -6967,11 +6926,6 @@ packages:
     resolution: {integrity: sha512-XkD+zwiqXHikFZm4AX/7JSCXA98U5Db4AFd5XUg/+9UNtnH75+Z9KxtpYiJZx36mUDVOwH83pl7yvCer6ewM3w==}
     dev: true
 
-  /split-on-first@3.0.0:
-    resolution: {integrity: sha512-qxQJTx2ryR0Dw0ITYyekNQWpz6f8dGd7vffGNflQQ3Iqj9NJ6qiZ7ELpZsJ/QBhIVAiDfXdag3+Gp8RvWa62AA==}
-    engines: {node: '>=12'}
-    dev: true
-
   /ssri@10.0.5:
     resolution: {integrity: sha512-bSf16tAFkGeRlUNDjXu8FzaMQt6g2HZJrun7mtMbIPOddxt3GLMSz5VWUWcqTJUPfLEaDIepGxv+bYQW49596A==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
@@ -7270,10 +7224,6 @@ packages:
     resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
     engines: {node: '>=14.17'}
     hasBin: true
-    dev: true
-
-  /ufo@1.3.0:
-    resolution: {integrity: sha512-bRn3CsoojyNStCZe0BG0Mt4Nr/4KF+rhFlnNXybgqt5pXHNFRlqinSoQaTrGyzE4X8aHplSb+TorH+COin9Yxw==}
     dev: true
 
   /ufo@1.3.2:

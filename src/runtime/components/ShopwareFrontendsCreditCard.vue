@@ -3,6 +3,7 @@ import { useShopwareContext, useUser } from '@shopware-pwa/composables-next';
 import type { MollieLocale } from '../../types';
 import { computed, ref } from 'vue';
 import { useAsyncData } from '#imports';
+import { ApiClientError } from '@shopware/api-client';
 
 const emits = defineEmits<{
     (e: 'submit', token: string | undefined): void;
@@ -23,14 +24,21 @@ const props = defineProps<{
     hideSaveButton?: boolean;
 }>();
 
-const { apiInstance } = useShopwareContext();
+const { apiClient } = useShopwareContext();
 
 // get the mollie config
 const { data: mollieConfig } = await useAsyncData(
     'mollieConfig',
     async () => {
-        const response = await apiInstance.invoke.get('/store-api/mollie/config');
-        return response.data;
+        try {
+            return await apiClient.invoke('getConfig get /mollie/config');
+        } catch (error) {
+            if (error instanceof ApiClientError) {
+                console.error(error);
+            } else {
+                console.error("==>", error);
+            }
+        }
     }
 )
 
@@ -44,8 +52,17 @@ const { data: mandates } = await useAsyncData(
     'mollieMandates',
     async () => {
         if (!mollieConfig.value?.oneClickPayments || !user.value?.id) return [];
-        const response = await apiInstance.invoke.get(`/store-api/mollie/mandates/${user.value?.id}`);
-        return response.data?.mandates;
+
+        try {
+            const response = await apiClient.invoke(`getMandates get /mollie/mandates/${user.value?.id}`);
+            return response?.mandates;
+        } catch (error) {
+            if (error instanceof ApiClientError) {
+                console.error(error);
+            } else {
+                console.error("==>", error);
+            }
+        }
     }
 )
 
@@ -55,12 +72,21 @@ const oneClickPaymentsActive = computed(() => mollieConfig.value?.oneClickPaymen
 const shouldSaveCardDetail = ref(false);
 
 const onCreditCardSubmit = async (token: string | undefined) => {
-    apiInstance.invoke.post(
-        `/store-api/mollie/creditcard/store-token/${user.value?.id}/${token}`,
-        {
-            shouldSaveCardDetail: shouldSaveCardDetail.value,
+    try {
+        await apiClient.invoke(
+            `saveCardToken post /mollie/creditcard/store-token/${user.value?.id}/${token}`,
+            {
+                shouldSaveCardDetail: shouldSaveCardDetail.value,
+            }
+        );
+    } catch (error) {
+        if (error instanceof ApiClientError) {
+            console.error(error);
+        } else {
+            console.error("==>", error);
         }
-    );
+    }
+
     emits('submit', token);
 };
 
@@ -74,10 +100,19 @@ const onSaveCardChange = (value: boolean) => {
     emits('should-save-card-details', value);
 };
 
-const onMandateChange = (mandateId: string | undefined) => {
-    apiInstance.invoke.post(
-        `/store-api/mollie/creditcard/store-mandate-id/${user.value?.id}/${mandateId}`
-    );
+const onMandateChange = async (mandateId: string | undefined) => {
+    try {
+        await apiClient.invoke(
+            `saveMandateId post /mollie/creditcard/store-mandate-id/${user.value?.id}/${mandateId}`
+        );
+    } catch (error) {
+        if (error instanceof ApiClientError) {
+            console.error(error);
+        } else {
+            console.error("==>", error);
+        }
+    }
+
     emits('store-mandate', mandateId);
 };
 </script>

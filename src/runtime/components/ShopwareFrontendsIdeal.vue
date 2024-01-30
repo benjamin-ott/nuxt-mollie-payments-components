@@ -3,7 +3,7 @@ import { useMollie, useAsyncData } from '#imports';
 import { onMounted, ref, type Ref } from 'vue';
 import type { MollieIdealIssuer, MollieLocale } from '../../types';
 import { useShopwareContext, useUser } from '@shopware-pwa/composables-next';
-import type { ClientApiError } from '@shopware-pwa/types';
+import { ApiClientError } from "@shopware/api-client";
 
 const emits = defineEmits<{
     (e: 'get-issuers-error', error: string | undefined): void;
@@ -17,13 +17,20 @@ const props = defineProps<{
     selectDisabledOption?: string;
 }>();
 
-const { apiInstance } = useShopwareContext();
+const { apiClient } = useShopwareContext();
 
 const { data: mollieConfig } = await useAsyncData(
     'mollieConfig',
     async () => {
-        const response = await apiInstance.invoke.get('/store-api/mollie/config');
-        return response.data;
+        try {
+            return await apiClient.invoke('getConfig get /mollie/config');
+        } catch (error) {
+            if (error instanceof ApiClientError) {
+                console.error(error);
+            } else {
+                console.error("==>", error);
+            }
+        }
     }
 )
 // use the locale from the props if it exists, otherwise use the locale from the mollie config
@@ -37,25 +44,33 @@ const activeIssuer = ref<string | undefined>(undefined);
 
 const getIdealIssuers = async () => {
     try {
-        const issuersResponse = await apiInstance.invoke.get(
-            '/store-api/mollie/ideal/issuers'
-        );
-
-        issuers.value = issuersResponse?.data?.issuers;
+        const issuersResponse = await apiClient.invoke('getIssuers get /mollie/ideal/issuers');
+        issuers.value = issuersResponse?.issuers;
     } catch (error) {
+        if (error instanceof ApiClientError) {
+            console.error(error);
+        } else {
+            console.error("==>", error);
+        }
+
         emits('get-issuers-error', error as string);
     }
 }
 
 const saveIdealIssuer = async () => {
     try {
-        await apiInstance.invoke.post(
-            `/store-api/mollie/ideal/store-issuer/${user.value?.id}/${activeIssuer.value}`,
+        await apiClient.invoke(
+            `storeIssuer post /mollie/ideal/store-issuer/${user.value?.id}/${activeIssuer.value}`,
             {}
         );
         emits('save-issuer-success');
-    } catch (err) {
-        const error = err as ClientApiError;
+    } catch (error) {
+        if (error instanceof ApiClientError) {
+            console.error(error);
+        } else {
+            console.error("==>", error);
+        }
+
         emits('save-issuer-error', error.messages[0].detail);
     }
 }

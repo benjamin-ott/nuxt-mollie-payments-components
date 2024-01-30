@@ -13,9 +13,9 @@
     "nuxt": "^3.9.3"
   },
   "dependencies": {
-    "@shopware-pwa/api-client": "^0.7.0",
-    "@shopware-pwa/composables-next": "^0.14.1",
-    "@shopware-pwa/nuxt3-module": "^0.5.6",
+    "@shopware-pwa/composables-next": "canary",
+    "@shopware-pwa/nuxt3-module": "canary",
+    "@shopware/api-client": "canary",
     "vue": "^3.4.15"
   }
 }

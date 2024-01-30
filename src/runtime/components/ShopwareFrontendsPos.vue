@@ -3,7 +3,7 @@ import { useMollie, useAsyncData } from '#imports';
 import { onMounted, ref, type Ref } from 'vue';
 import type { MolliePosTerminal, MollieLocale } from '../../types';
 import { useShopwareContext, useUser } from '@shopware-pwa/composables-next';
-import type { ClientApiError } from '@shopware-pwa/types';
+import { ApiClientError } from "@shopware/api-client";
 
 const emits = defineEmits<{
     (e: 'get-terminals-error', error: string | undefined): void;
@@ -17,13 +17,20 @@ const props = defineProps<{
     selectDisabledOption?: string;
 }>();
 
-const { apiInstance } = useShopwareContext();
+const { apiClient } = useShopwareContext();
 
 const { data: mollieConfig } = await useAsyncData(
     'mollieConfig',
     async () => {
-        const response = await apiInstance.invoke.get('/store-api/mollie/config');
-        return response.data;
+        try {
+            return await apiClient.invoke('getConfig get /mollie/config');
+        } catch (error) {
+            if (error instanceof ApiClientError) {
+                console.error(error);
+            } else {
+                console.error("==>", error);
+            }
+        }
     }
 )
 // use the locale from the props if it exists, otherwise use the locale from the mollie config
@@ -37,25 +44,34 @@ const selectedTerminal = ref<string | undefined>(undefined);
 
 const getPosTerminals = async () => {
     try {
-        const terminalsResponse = await apiInstance.invoke.get(
-            '/store-api/mollie/pos/terminals'
+        const terminalsResponse = await apiClient.invoke(
+            'getIssuers get /mollie/pos/terminals'
         );
 
-        terminals.value = terminalsResponse?.data?.terminals;
+        terminals.value = terminalsResponse?.terminals;
     } catch (error) {
+        if (error instanceof ApiClientError) {
+            console.error(error);
+        } else {
+            console.error("==>", error);
+        }
         emits('get-terminals-error', error as string);
     }
 }
 
 const savePosTerminal = async () => {
     try {
-        await apiInstance.invoke.post(
-            `/store-api/mollie/pos/store-terminal/${user.value?.id}/${selectedTerminal.value}`,
+        await apiClient.invoke(
+            `storeTerminal post /mollie/pos/store-terminal/${user.value?.id}/${selectedTerminal.value}`,
             {}
         );
         emits('save-terminal-success');
-    } catch (err) {
-        const error = err as ClientApiError;
+    } catch (error) {
+        if (error instanceof ApiClientError) {
+            console.error(error);
+        } else {
+            console.error("==>", error);
+        }
         emits('save-terminal-error', error.messages[0].detail);
     }
 }

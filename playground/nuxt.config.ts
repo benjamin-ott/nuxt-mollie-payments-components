@@ -1,4 +1,5 @@
 export default defineNuxtConfig({
+  extends: ['@shopware-pwa/composables-next/nuxt-layer'],
   modules: ["../src/module", "@shopware-pwa/nuxt3-module"],
   runtimeConfig: {
     public: {
