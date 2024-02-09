@@ -55,6 +55,7 @@ Create a custom placeOrder function in your checkout page and react to the payme
 <script setup lang="ts">
     // ...
     
+    const mollieConfig = ref()
     const creditCardError = ref();
     const creditCardToken = ref();
     const creditCardSaveCardChange = ref(false);
@@ -72,15 +73,29 @@ Create a custom placeOrder function in your checkout page and react to the payme
 
         isLoading['placeOrder'] = true;
 
-        // save credit card details if needed (this is not needed if the credit card form uses it's own save button)
-        if (creditCardToken.value && isMollieCreditCardPaymentMethod.value && !creditCardActiveMandate.value) {
-            try {
-                await apiInstance.invoke.post(
-                    `/store-api/mollie/creditcard/store-token/${user.value?.id}/${creditCardToken.value}`,
-                    { shouldSaveCardDetail: creditCardSaveCardChange.value }
-                );
-            } catch (e) {
-                throw new Error('Error: could not save credit card details');
+        if (isMollieCreditCardPaymentMethod.value) {
+            // save mandate id if needed
+            if (creditCardActiveMandate.value) {
+                try {
+                    await apiClient.invoke(
+                        `saveMandateId post /mollie/creditcard/store-mandate-id/${user.value?.id}/${creditCardActiveMandate.value}`,
+                    )
+                } catch (e) {
+                    throw new Error('Error: could not save credit card mandate')
+                }
+            // save credit card details if needed (this is not needed if the credit card form uses it's own save button)
+            } else if (!creditCardToken.value) {
+                try {
+                    const { getToken } = useMollie(mollieConfig.value)
+                    creditCardToken.value = await getToken()
+
+                    await apiClient.invoke(
+                        `saveCardToken post /mollie/creditcard/store-token/${user.value?.id}/${creditCardToken.value}`,
+                        { shouldSaveCardDetail: creditCardSaveCardChange.value },
+                    )
+                } catch (e) {
+                    throw new Error('Error: could not save credit card details')
+                }
             }
         }
 
@@ -150,10 +165,9 @@ Create a custom placeOrder function in your checkout page and react to the payme
                         creditCardSaveCardChange = value;
                     }
                 "
-                @submit="
-                    (token: string | undefined) => {
-                        creditCardToken = `${token}`;
-                        creditCardError = null;
+                @config-loaded="
+                    (config: MollieConfig) => {
+                        mollieConfig = config
                     }
                 "
                 @error="

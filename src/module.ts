@@ -42,6 +42,13 @@ export default defineNuxtModule<MollieOptions>({
             ),
         });
 
+        addComponent({
+            name: 'MollieCreditCardRemoveMandates',
+            filePath: resolver.resolve(
+                './runtime/components/MollieCreditCardRemoveMandates.vue'
+            ),
+        });
+
         addImports([
             {
                 name: 'useMollieCreditCard',
@@ -76,6 +83,13 @@ export default defineNuxtModule<MollieOptions>({
                 name: 'ShopwareFrontendsCreditCard',
                 filePath: resolver.resolve(
                     './runtime/components/ShopwareFrontendsCreditCard.vue'
+                ),
+            });
+
+            addComponent({
+                name: 'ShopwareFrontendsCreditCardRemoveMandates',
+                filePath: resolver.resolve(
+                    './runtime/components/ShopwareFrontendsCreditCardRemoveMandates.vue'
                 ),
             });
 

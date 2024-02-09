@@ -8,7 +8,7 @@ const emits = defineEmits<{
 
 defineProps<{
     mandates: MollieCreditCardMandate[];
-    selectLabel?: string;
+    newCardSelectValue: string;
     selectDisabledOption?: string;
     mandateOrNewText?: string;
 }>();
@@ -22,37 +22,64 @@ const changeMandate = async () => {
 
 <template>
   <div class="mollie-credit-card-mandates">
-    <label for="mollieCreditCardMandateSelect">
-      {{ selectLabel ?? `Please choose your mandate:` }}
-    </label>
-    <select
-      id="mollieCreditCardMandateSelect"
-      v-model="activeMandate"
-      class="mollie-select mollie-mandate-select"
-      @change="changeMandate"
+    <div
+      v-for="mandate in mandates"
+      :key="mandate.id"
+      class="mollie-credit-card-mandates__radio"
     >
-      <option
-        value=""
-        disabled
-        selected
-      >
-        {{ selectDisabledOption ?? `Select your mandate` }}
-      </option>
-      <option
-        v-for="mandate in mandates"
-        :key="mandate.id"
+      <input
+        :id="'mandate_' + mandate.id"
+        v-model="activeMandate"
+        class="mollie-credit-card-mandates__radio-input"
+        type="radio"
         :value="mandate.id"
+        :checked="mandate.id === activeMandate"
+        @change="changeMandate"
       >
-        {{ mandate.details.cardLabel }} - {{ mandate.details.cardHolder }} - {{ mandate.details.cardNumber }}
-      </option>
-    </select>
+      <label
+        :for="'mandate_' + mandate.id"
+        class="mollie-credit-card-mandates__radio-label"
+      >
+        <span
+          class="mollie-credit-card-mandates__radio-styled"
+          :class="{'is-checked': activeMandate === mandate.id}"
+        >
+          <span
+            v-if="activeMandate === mandate.id"
+            class="mollie-credit-card-mandates__radio-styled-checked"
+          />
+        </span>
+        {{ mandate.details.cardLabel }} - {{ mandate.details.cardHolder }} - **** {{ mandate.details.cardNumber }}
+      </label>
+    </div>
 
-    <p class="mollie-credit-card-mandate-or-new-text">
-      {{ mandateOrNewText ?? 'Or enter your credit card details:' }}
-    </p>
+    <div
+      class="mollie-credit-card-mandates__radio"
+    >
+      <input
+        id="mollie-credit-card-new"
+        v-model="activeMandate"
+        class="mollie-credit-card-mandates__radio-input"
+        type="radio"
+        :value="newCardSelectValue"
+        :checked="activeMandate === newCardSelectValue"
+        @change="changeMandate"
+      >
+      <label
+        for="mollie-credit-card-new"
+        class="mollie-credit-card-mandates__radio-label"
+      >
+        <span
+          class="mollie-credit-card-mandates__radio-styled"
+          :class="{'is-checked': activeMandate === newCardSelectValue}"
+        >
+          <span
+            v-if="activeMandate === newCardSelectValue"
+            class="mollie-credit-card-mandates__radio-styled-checked"
+          />
+        </span>
+        {{ mandateOrNewText ?? 'New Card' }}
+      </label>
+    </div>
   </div>
 </template>
-
-<style scoped>
-@import '../assets/css/mollie-select.css';
-</style>

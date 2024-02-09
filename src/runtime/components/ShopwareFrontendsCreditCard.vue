@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useShopwareContext, useUser } from '@shopware-pwa/composables-next';
-import type { MollieLocale } from '../../types';
+import type { MollieConfig, MollieLocale } from '../../types';
 import { computed, ref } from 'vue';
 import { useAsyncData } from '#imports';
 import { ApiClientError } from '@shopware/api-client';
@@ -11,6 +11,7 @@ const emits = defineEmits<{
     (e: 'store-mandate', mandateId: string | undefined): void;
     (e: 'should-save-card-details', shouldSave: boolean): void;
     (e: 'mounted', value: boolean): void;
+    (e: 'config-loaded', config: MollieConfig): void;
 }>();
 
 const props = defineProps<{
@@ -18,7 +19,6 @@ const props = defineProps<{
     submitButtonLabel?: string;
     submitDisabled?: boolean;
     saveCardDetailsCheckboxLabel?: string;
-    mandatesSelectLabel?: string;
     mandatesSelectDisabledOption?: string;
     mandateOrNewText?: string;
     hideSaveButton?: boolean;
@@ -31,7 +31,13 @@ const { data: mollieConfig } = await useAsyncData(
     'mollieConfig',
     async () => {
         try {
-            return await apiClient.invoke('getConfig get /mollie/config');
+            const config = await apiClient.invoke('getConfig get /mollie/config');
+
+            // use the locale from the props if it exists, otherwise use the locale from the mollie config
+            if (config && props.locale) config.locale = props.locale;
+
+            emits('config-loaded', config);
+            return config;
         } catch (error) {
             if (error instanceof ApiClientError) {
                 console.error(error);
@@ -42,16 +48,18 @@ const { data: mollieConfig } = await useAsyncData(
     }
 )
 
-// use the locale from the props if it exists, otherwise use the locale from the mollie config
-if (mollieConfig.value && props.locale) mollieConfig.value.locale = props.locale;
-
 const { user } = useUser();
+
+// determines if one click payments are actived in the mollie plugin
+const oneClickPaymentsActive = computed(() => mollieConfig.value?.oneClickPayments);
+// determines if credit card details should be saved
+const shouldSaveCardDetail = ref(false);
 
 // get the mandates for the user if one click payments are active
 const { data: mandates } = await useAsyncData(
     'mollieMandates',
     async () => {
-        if (!mollieConfig.value?.oneClickPayments || !user.value?.id) return [];
+        if (!oneClickPaymentsActive.value || !user.value?.id) return [];
 
         try {
             const response = await apiClient.invoke(`getMandates get /mollie/mandates/${user.value?.id}`);
@@ -65,11 +73,6 @@ const { data: mandates } = await useAsyncData(
         }
     }
 )
-
-// determines if one click payments are actived in the mollie plugin
-const oneClickPaymentsActive = computed(() => mollieConfig.value?.oneClickPayments);
-// determines if credit card details should be saved
-const shouldSaveCardDetail = ref(false);
 
 const onCreditCardSubmit = async (token: string | undefined) => {
     try {
@@ -100,20 +103,17 @@ const onSaveCardChange = (value: boolean) => {
     emits('should-save-card-details', value);
 };
 
-const onMandateChange = async (mandateId: string | undefined) => {
-    try {
-        await apiClient.invoke(
-            `saveMandateId post /mollie/creditcard/store-mandate-id/${user.value?.id}/${mandateId}`
-        );
-    } catch (error) {
-        if (error instanceof ApiClientError) {
-            console.error(error);
-        } else {
-            console.error("==>", error);
-        }
-    }
+const newCardSelectValue = 'NEW';
+const currentMandateId = ref();
+const showNewCardForm = computed(() => currentMandateId.value === newCardSelectValue || !oneClickPaymentsActive.value || mandates?.value.length === 0);
 
-    emits('store-mandate', mandateId);
+const onMandateChange = async (mandateId: string | undefined) => {
+    currentMandateId.value = mandateId;
+    if (currentMandateId.value === newCardSelectValue) {
+        emits('store-mandate', null);
+    } else {
+        emits('store-mandate', currentMandateId.value);
+    }
 };
 </script>
 
@@ -122,13 +122,14 @@ const onMandateChange = async (mandateId: string | undefined) => {
     <MollieCreditCardMandates
       v-if="oneClickPaymentsActive && mandates && mandates.length > 0"
       :mandates="mandates"
-      :select-label="mandatesSelectLabel"
       :select-disable-option="mandatesSelectDisabledOption"
       :mandate-or-new-text="mandateOrNewText"
+      :new-card-select-value="newCardSelectValue"
       @change-mandate="onMandateChange"
     />
 
     <MollieCreditCardComponent
+      v-show="showNewCardForm"
       :mollie-config="mollieConfig"
       :submit-button-label="submitButtonLabel"
       :submit-disabled="submitDisabled"

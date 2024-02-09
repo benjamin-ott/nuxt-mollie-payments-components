@@ -6,7 +6,7 @@
     margin-bottom: 10px;
 }
 
-.mollie-credit-card__submit-button {
+.mollie-credit-card__button {
     background-color: #04aa6d;
     color: white;
     padding: 12px;
@@ -17,11 +17,11 @@
     font-size: 17px;
 }
 
-.mollie-credit-card__submit-button:hover {
+.mollie-credit-card__button:hover {
     background-color: #45a049;
 }
 
-.mollie-credit-card__submit-button.button-disabled {
+.mollie-credit-card__button.button-disabled {
     background-color: #f2f2f2;
     color: #949494;
     cursor: default;
@@ -32,6 +32,8 @@
     font-size: 14px;
 }
 
-.mollie-credit-card-mandate-or-new-text {
-    margin-bottom: 10px;
+.mollie-credit-card-mandates-remove__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

@@ -47,7 +47,10 @@ onMounted(async () => {
 
 <template>
   <div class="mollie-credit-card">
-    <div id="mollie-credit-card-container" />
+    <div
+      id="mollie-credit-card-container"
+      class="mollie-credit-card-container"
+    />
 
     <div
       v-if="mollieConfig && mollieConfig.oneClickPayments"
@@ -75,7 +78,7 @@ onMounted(async () => {
     <button
       v-if="!hideSaveButton"
       :disabled="submitDisabled"
-      class="mollie-credit-card__submit-button"
+      class="mollie-credit-card__button"
       :class="{ 'button-disabled': submitDisabled }"
       @click="onCreditCardSubmit"
     >
