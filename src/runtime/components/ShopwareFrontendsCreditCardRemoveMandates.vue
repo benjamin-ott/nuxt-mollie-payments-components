@@ -40,7 +40,6 @@ const { user } = useUser();
 // determines if one click payments are actived in the mollie plugin
 const oneClickPaymentsActive = computed(() => mollieConfig.value?.oneClickPayments);
 
-// TODO: auslagern
 const getMandates = async () => {
     if (!oneClickPaymentsActive.value || !user.value?.id) return [];
 
