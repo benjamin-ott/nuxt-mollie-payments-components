@@ -10,6 +10,7 @@ export default defineNuxtPlugin({
             script: [
                 {
                     src: 'https://js.mollie.com/v1/mollie.js',
+                    defer: true
                 },
             ],
         })
