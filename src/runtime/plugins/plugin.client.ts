@@ -1,6 +1,6 @@
-import { defineNuxtPlugin } from '#app';
-import { useRuntimeConfig } from '#imports';
-import type { CreateLocaleInstanceArgs, MolliePlugin, MollieOptions } from '../../types';
+import { defineNuxtPlugin } from '#app'
+import { useRuntimeConfig } from '#imports'
+import type { CreateLocaleInstanceArgs, MolliePlugin, MollieOptions } from '../../types'
 
 export default defineNuxtPlugin({
     name: 'mollie-instance',
@@ -9,16 +9,14 @@ export default defineNuxtPlugin({
     async setup(nuxtApp) {
         if (!window.Mollie) {
             throw Error(
-                'mollie-register plugin didn\'t register required scripts, thus mollie instance cannot be created.'
-            );
+                "mollie-register plugin didn't register required scripts, thus mollie instance cannot be created.",
+            )
         }
-        const runtimeConfig = useRuntimeConfig();
+        const runtimeConfig = useRuntimeConfig()
 
-        const mollieOptions = runtimeConfig?.public?.mollie as MollieOptions;
+        const mollieOptions = runtimeConfig?.public?.mollie as MollieOptions
 
-        function createLocaleInstance(
-            args: CreateLocaleInstanceArgs
-        ) {
+        function createLocaleInstance(args: CreateLocaleInstanceArgs) {
             if (!args) {
                 args = {
                     profileId: mollieOptions.profileId,
@@ -27,22 +25,24 @@ export default defineNuxtPlugin({
                 }
             }
 
-            const { profileId, testMode, locale } = args;
+            const { profileId, testMode, locale } = args
 
-            return profileId ? window.Mollie(profileId, {
-                locale: locale ?? 'en_US',
-                testmode: typeof testMode === 'boolean' ? testMode : true
-            }) : null;
+            return profileId
+                ? window.Mollie(profileId, {
+                      locale: locale ?? 'en_US',
+                      testmode: typeof testMode === 'boolean' ? testMode : true,
+                  })
+                : null
         }
 
         const Mollie: MolliePlugin = {
             mollieInstance: null,
             createMollieInstance: function (args: CreateLocaleInstanceArgs) {
-                this.mollieInstance = this.mollieInstance || createLocaleInstance(args);
-                return this.mollieInstance;
+                this.mollieInstance = this.mollieInstance || createLocaleInstance(args)
+                return this.mollieInstance
             },
-        };
+        }
 
-        nuxtApp.provide('mollie', Mollie);
+        nuxtApp.provide('mollie', Mollie)
     },
-});
+})
