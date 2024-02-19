@@ -83,10 +83,5 @@ export default defineNuxtModule<MollieOptions>({
                 '@shopware-pwa/composables-next or @shopware/api-client package is missing. ShopwareFrontendsCreditCard, ShopwareFrontendsIdeal and ShopwareFrontendsPos components were not registered.',
             )
         }
-
-        const i18nModuleDependency = await resolveOwnDependency('@nuxt/i18n', nuxt)
-        if (!i18nModuleDependency) {
-            console.warn('@nuxt/i18n module is missing. Default value of locale will be used.')
-        }
     },
 })
