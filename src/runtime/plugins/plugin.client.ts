@@ -8,7 +8,7 @@ export default defineNuxtPlugin({
 
     async setup(nuxtApp) {
         if (!window.Mollie) {
-            throw Error(
+            console.error(
                 "mollie-register plugin didn't register required scripts, thus mollie instance cannot be created.",
             )
         }
